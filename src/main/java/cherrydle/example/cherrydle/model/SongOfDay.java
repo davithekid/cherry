@@ -1,23 +1,24 @@
 package cherrydle.example.cherrydle.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
 
 @Table(name = "song_of_day")
 @Entity
 public class SongOfDay {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
-    private String album;
-    private Integer track;
-    private Integer length;
-    private Boolean features;
+    // Relacionamento com a tabela songs
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "song_id", nullable = false)
+    private Songs song;
+
+    // Data em que a música foi sorteada (opcional, útil para histórico)
+    private LocalDate date = LocalDate.now();
 
     public Integer getId() {
         return id;
@@ -27,43 +28,19 @@ public class SongOfDay {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Songs getSong() {
+        return song;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSong(Songs song) {
+        this.song = song;
     }
 
-    public String getAlbum() {
-        return album;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
-    public Integer getTrack() {
-        return track;
-    }
-
-    public void setTrack(Integer track) {
-        this.track = track;
-    }
-
-    public Integer getLength() {
-        return length;
-    }
-
-    public void setLength(Integer length) {
-        this.length = length;
-    }
-
-    public Boolean getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(Boolean features) {
-        this.features = features;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

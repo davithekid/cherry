@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Table(name = "songs")
 @Entity
-public class Song {
+public class Songs {
 
     @Id
     @GeneratedValue
@@ -19,7 +19,7 @@ public class Song {
     private Integer length;
     private Boolean features;
 
-    public Song() {
+    public Songs() {
     }
 
     public Integer getId() {
